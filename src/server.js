@@ -1,6 +1,6 @@
 const app = require("./app");
 const http = require("http");
-const port = normalizePort(proccess.env.PORT || "3000");
+const port = normalizePort(process.env.PORT || "3000");
 
 app.set("port", port);
 
