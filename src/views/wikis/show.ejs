@@ -12,6 +12,7 @@
       <% include ../static/partials/messages.ejs %>
 
       <h1><%= wiki.title %></h1>
+        <a href="/wikis/<%= wiki.id %>/edit" class="btn btn-warning">Edit wiki</a>
         <form style="display:initial" action="/wikis/<%= wiki.id %>/destroy" method="post">
           <button type="submit" class="btn btn-danger">Delete this wiki</button>
         </form>
