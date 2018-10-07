@@ -10,7 +10,7 @@ module.exports = {
     passport.use(new LocalStrategy({
       usernameField: "email"
     }, (email, password, done) => {
-      User.fineOne({
+      User.findOne({
         where: { email }
       })
       .then((user) => {
