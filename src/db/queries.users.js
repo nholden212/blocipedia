@@ -15,13 +15,13 @@ module.exports = {
       password: hashedPassword
     })
     .then((user) => {
-      /*const msg = {
+      const msg = {
         to: user.email,
-        from: 'welcometeam@blocipedia.com',
+        from: 'nholden212@gmail.com',
         subject: 'Blocipedia account confirmation',
         html: '<div><h4>Welcome to Blocipedia!</h4><p>Your account has been successfully created.</p></div>',
       };
-      sgMail.send(msg);*/
+      sgMail.send(msg);
       callback(null, user);
     })
     .catch((err) => {
