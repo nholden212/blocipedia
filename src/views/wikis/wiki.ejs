@@ -9,6 +9,12 @@
 
       <h1>Wikis</h1>
 
+      <% include ../static/partials/messages.ejs %>
+
+      <% if(currentUser && currentUser.isAdmin()) { %>
+        <a href="/wikis/new" class="btn btn-success">New Wiki</a>
+      <% } %>
+
       <ul class="list-group">
         <% wikis.forEach((wiki) => { %>
           <li class="list-group-item">

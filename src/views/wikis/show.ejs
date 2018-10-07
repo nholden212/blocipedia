@@ -12,10 +12,16 @@
       <% include ../static/partials/messages.ejs %>
 
       <h1><%= wiki.title %></h1>
+
+      <% if(currentUser.hasPremium()) { %>
         <a href="/wikis/<%= wiki.id %>/edit" class="btn btn-warning">Edit wiki</a>
+      <% } %>
+
+      <% if(currentUser.isAdmin()) { %>
         <form style="display:initial" action="/wikis/<%= wiki.id %>/destroy" method="post">
-          <button type="submit" class="btn btn-danger">Delete this wiki</button>
+          <button type="submit" class="btn btn-danger">Delete wiki</button>
         </form>
+      <% } %>
 
       <p><%= wiki.body %></p>
 
