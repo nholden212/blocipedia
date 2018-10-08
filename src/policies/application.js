@@ -8,10 +8,6 @@ module.exports = class ApplicationPolicy {
     return this.record && (this.record.userId == this.user.id);
   }
 
-  _hasPremium(){
-    return this.user && this.user.role == "premium"
-  }
-
   _isAdmin(){
     return this.user && this.user.role == "admin";
   }
@@ -29,8 +25,7 @@ module.exports = class ApplicationPolicy {
   }
 
   edit(){
-    return this.new() &&
-      this.record && (this._isOwner() || this._isAdmin());
+    return this.new();
   }
 
   update(){
@@ -38,6 +33,7 @@ module.exports = class ApplicationPolicy {
   }
 
   destroy(){
-    return this.update();
+    return this.new()  &&
+      this.record && (this._isOwner() || this._isAdmin());
   }
 }

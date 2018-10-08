@@ -13,7 +13,12 @@
 
       <h1><%= wiki.title %></h1>
 
-      <% if(currentUser.hasPremium()) { %>
+      <% if(wiki.private) { %>
+        <p>This wiki is private. Only Premium members may edit private wikis.</p>
+        <% if(currentUser.hasPremium() || currentUser.isAdmin()) { %>
+          <a href="/wikis/<%= wiki.id %>/edit" class="btn btn-warning">Edit wiki</a>
+        <% } %>
+      <% } else { %>
         <a href="/wikis/<%= wiki.id %>/edit" class="btn btn-warning">Edit wiki</a>
       <% } %>
 
