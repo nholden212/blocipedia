@@ -99,7 +99,7 @@ module.exports = {
         })
       } else {
         req.flash("notice", "Upgrade unsuccessful.");
-        res.redirect("/users/upgrade");
+        res.redirect("/users/upgrade", {user});
       }
     })
   },
@@ -116,17 +116,15 @@ module.exports = {
   },
 
   downgrade(req, res, next){
-    User.findOne({
-      where: {id: req.params.id}
-    })
-    .then((user) => {
-      if(user){
+    userQueries.getUser(req.params.id, (err, user) => {
+      if(err || user === undefined){
+        req.flash("notice", "Downgrade unsuccessful.");
+        res.redirect("/users/show", {user});
+      } else {
+        console.log(user);
         userQueries.toggleRole(user);
         req.flash("notice", "Downgrade successful!");
         res.redirect("/");
-      } else {
-          req.flash("notice", "Downgrade unsuccessful.");
-          res.redirect("/users/show", {user});
       }
     })
   }
