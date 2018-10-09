@@ -1,4 +1,5 @@
 const userQueries = require("../db/queries.users.js");
+const wikiQueries = require("../db/queries.wikis.js");
 const User = require("../db/models").User;
 const passport = require("passport");
 const stripe = require("stripe")(process.env.STRIPE_API_KEY);
@@ -121,7 +122,7 @@ module.exports = {
         req.flash("notice", "Downgrade unsuccessful.");
         res.redirect("/users/show", {user});
       } else {
-        console.log(user);
+        wikiQueries.togglePrivacy(user);
         userQueries.toggleRole(user);
         req.flash("notice", "Downgrade successful!");
         res.redirect("/");

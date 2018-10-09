@@ -9,6 +9,7 @@ for(let i=1; i<=15; i++){
     title: faker.hacker.noun(),
     body: faker.hacker.phrase(),
     private: "false",
+    userId: 0,
     createdAt: new Date(),
     updatedAt: new Date()
   });
