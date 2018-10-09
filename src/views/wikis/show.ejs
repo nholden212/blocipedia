@@ -11,7 +11,7 @@
 
       <% include ../static/partials/messages.ejs %>
 
-      <h1><%= wiki.title %></h1>
+      <h1><%- wiki.title %></h1>
 
       <% if(wiki.private) { %>
         <p>This wiki is private. Only Premium members may edit private wikis.</p>
@@ -28,7 +28,7 @@
         </form>
       <% } %>
 
-      <p><%= wiki.body %></p>
+      <p><%- wiki.body %></p>
 
     </main>
 
