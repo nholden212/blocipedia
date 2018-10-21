@@ -1,4 +1,5 @@
 const Wiki = require("./models").Wiki;
+const Collaborator = require("./models").Collaborator;
 const Authorizer = require("../policies/application");
 
 module.exports = {
@@ -82,7 +83,6 @@ module.exports = {
   },
 
   togglePrivacy(user){
-    console.log(user.id);
     Wiki.findAll({
       where: { userId: user.id }
     })

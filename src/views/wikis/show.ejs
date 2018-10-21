@@ -14,7 +14,8 @@
       <h1><%- wiki.title %></h1>
 
       <% if(wiki.private) { %>
-        <p>This wiki is private. Only Premium members may edit private wikis.</p>
+        <p>This wiki is private. Only Premium members and approved collaborators may edit private wikis.</p>
+
         <% if(currentUser.hasPremium() || currentUser.isAdmin()) { %>
           <a href="/wikis/<%= wiki.id %>/edit" class="btn btn-warning">Edit wiki</a>
         <% } %>
@@ -22,10 +23,12 @@
         <a href="/wikis/<%= wiki.id %>/edit" class="btn btn-warning">Edit wiki</a>
       <% } %>
 
-      <% if(currentUser.isAdmin()) { %>
-        <form style="display:initial" action="/wikis/<%= wiki.id %>/destroy" method="post">
-          <button type="submit" class="btn btn-danger">Delete wiki</button>
-        </form>
+      <% if(currentUser) { %>
+        <% if(currentUser.isAdmin()) { %>
+          <form style="display:initial" action="/wikis/<%= wiki.id %>/destroy" method="post">
+            <button type="submit" class="btn btn-danger">Delete wiki</button>
+          </form>
+        <% } %>
       <% } %>
 
       <p><%- wiki.body %></p>

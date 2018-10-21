@@ -39,6 +39,18 @@ module.exports = {
     })
   },
 
+  getUserByUsername(username, callback){
+    return User.findOne({
+      where: {username: username}
+    })
+    .then((user) => {
+      callback(null, user);
+    })
+    .catch((err) => {
+      callback(err);
+    })
+  },
+
   toggleRole(user){
     User.findOne({
       where: {username: user.username}

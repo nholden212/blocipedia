@@ -1,4 +1,6 @@
 const wikiQueries = require("../db/queries.wikis.js");
+const collabQueries = require("../db/queries.collabs.js");
+const userQueries = require("../db/queries.users.js");
 const Authorizer = require("../policies/application");
 const markdown = require( "markdown" ).markdown;
 
@@ -53,7 +55,8 @@ module.exports = {
   show(req, res, next){
     wikiQueries.getWiki(req.params.id, (err, wiki) => {
       if(err || wiki == null){
-        console.log("THERE IS AN ERROR: " + err);
+        console.log("Check for here 3")
+        req.flash("notice", "Wiki not found");
         res.redirect(404, "/");
       } else {
         wiki.title = markdown.toHTML(wiki.title);
@@ -80,10 +83,16 @@ module.exports = {
       } else {
         const authorized = new Authorizer(req.user, wiki).edit();
         if(authorized){
-          res.render("wikis/edit", {wiki});
+          collabQueries.getAllCollabsByWiki(wiki, (err, collabs) => {
+            if(err || collabs === null){
+              console.log(err);
+            } else {
+              res.render("wikis/edit", {wiki: wiki, collabs: collabs});
+            }
+          });
         } else {
-          req.flash("You are not authorized to do that.");
-          res.redirect(`/topics/${req.params.id}`);
+          req.flash("notice", "You are not authorized to do that.");
+          res.redirect(`/wikis/${req.params.id}`);
         }
       }
     });

@@ -23,12 +23,27 @@
         </div>
         <% if(currentUser.hasPremium() || currentUser.isAdmin()) { %>
           <div class="form-group">
-            <label for="private">Check to make wiki private:</label>
-            <input value="<%= wiki.private %>" type="checkbox" class="form-control" name="private" placeholder="<% wiki.private %>">
+            <label for="private">Make this wiki private?</label>
+            <input value="true" type="radio" class="form-control" name="private" required>true
+            <input value="false" type="radio" class="form-control" name="private" required>false
           </div>
         <% } %>
         <button type="submit" class="btn btn-primary">Update</button>
       </form>
+
+      <% if(wiki.private) { %>
+        <h4>Wiki Collaborators</h4>
+        <ul class="list-group">
+          <% collabs.forEach((collab) => { %>
+            <li class="list-group-item">
+              <%- collab.username %>
+              <a href="/wikis/<%= wiki.id %>/<%= collab.id %>/destroyCollab">Delete collaborator</a>
+            </li>
+          <% }); %>
+        </ul>
+        <a href="/wikis/<%= wiki.id %>/newCollab" class="btn btn-primary">Add collaborators</a>
+      <% } %>
+
     </main>
 
     <% include ../static/partials/baseScripts.ejs %>

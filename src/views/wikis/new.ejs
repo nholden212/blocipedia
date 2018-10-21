@@ -24,8 +24,10 @@
         <% if(currentUser.hasPremium() || currentUser.isAdmin()) { %>
           <div class="form-group">
             <label for="private">Make this wiki private?</label>
-            <input type="checkbox" class="form-control" name="private">
+            <input value="true" type="radio" class="form-control" name="private" required>true
+            <input value="false" type="radio" class="form-control" name="private" required checked>false
           </div>
+          <p>You can add collaborators to a private wiki by editing it once it is created.</p>
         <% } %>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
