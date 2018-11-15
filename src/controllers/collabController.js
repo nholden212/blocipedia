@@ -31,6 +31,7 @@ module.exports = {
         if(err || user == null){
           res.redirect(404, "/");
         } else {
+          console.log("AY NEW COLLAB INCOMING");
           let newCollab = {
             userId: user.id,
             wikiId: req.params.id,

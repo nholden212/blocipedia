@@ -48,16 +48,18 @@ module.exports = (sequelize, DataTypes) => {
 
   User.prototype.isCollaborator = function(wiki) {
     let result = false;
+    var currentCollabs = [];
     const collabQueries = require("../queries.collabs.js");
-    return collabQueries.getAllCollabsByWiki(wiki, (err, collabs) => {
+    collabQueries.getAllCollabsByWiki(wiki, (err, collabs) => {
       if(err || collabs === undefined){
         console.log(err);
       } else {
-        if(collabs.includes(this.id)){
-          result = true;
-        }
+        collabs.map((collab) => {
+          currentCollabs.push(collab.username);
+        })
+        result = currentCollabs.includes(this.username);
         return result;
-        }
+      }
     });
   }
 
